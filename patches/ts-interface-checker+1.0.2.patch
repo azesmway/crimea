@@ -1,0 +1,13 @@
+diff --git a/node_modules/ts-interface-checker/dist/types.js b/node_modules/ts-interface-checker/dist/types.js
+index eaf2c04..e6326d9 100644
+--- a/node_modules/ts-interface-checker/dist/types.js
++++ b/node_modules/ts-interface-checker/dist/types.js
+@@ -63,7 +63,7 @@ var TName = /** @class */ (function (_super) {
+         // with circular references.
+         var checkerFunc = this._checkerBeingBuilt;
+         if (!checkerFunc) {
+-            this._checkerBeingBuilt = function (value, ctx) { return checkerFunc(value, ctx); };
++            this._checkerBeingBuilt = function (value, ctx) { return checkerFunc && checkerFunc(value, ctx); };
+             try {
+                 checkerFunc = this._getChecker(suite, strict, allowedProps);
+             }

@@ -1,0 +1,54 @@
+diff --git a/node_modules/react-native-size-matters/.DS_Store b/node_modules/react-native-size-matters/.DS_Store
+new file mode 100644
+index 0000000..52b0f12
+Binary files /dev/null and b/node_modules/react-native-size-matters/.DS_Store differ
+diff --git a/node_modules/react-native-size-matters/index.d.ts b/node_modules/react-native-size-matters/index.d.ts
+index fcb20fc..09e8ac5 100644
+--- a/node_modules/react-native-size-matters/index.d.ts
++++ b/node_modules/react-native-size-matters/index.d.ts
+@@ -1,6 +1,32 @@
+ import * as RN from 'react-native';
+ 
+ declare module 'react-native-size-matters' {
++    interface StringifiedStyles {
++        fontSize?: string | number;
++        letterSpacing?: string | number;
++        lineHeight?: string | number;
++        textShadowRadius?: string | number;
++        textShadowOffset?: { width: number | string; height: number | string; };
++        shadowOffset?: { width: number | string; height: number | string; };
++        borderBottomLeftRadius?: string | number;
++        borderBottomRightRadius?: string | number;
++        borderTopLeftRadius?: string | number;
++        borderTopRightRadius?: string | number;
++        borderBottomWidth?: string | number;
++        borderTopWidth?: string | number;
++        borderRightWidth?: string | number;
++        borderLeftWidth?: string | number;
++        borderRadius?: string | number;
++        shadowRadius?: string | number;
++        borderWidth?: string | number;
++        aspectRatio?: string | number;
++        rotation?: string | number;
++        scaleX?: string | number;
++        scaleY?: string | number;
++        translateX?: string | number;
++        translateY?: string | number;
++    }
++
+     export function scale(size: number): number;
+     export function verticalScale(size: number): number;
+     export function moderateScale(size: number, factor?: number): number;
+@@ -19,7 +45,7 @@ declare module 'react-native-size-matters' {
+     type ViewStyle = WithSize<RN.ViewStyle>;
+     type TextStyle = WithSize<RN.TextStyle>;
+     type ImageStyle = WithSize<RN.ImageStyle>;
+-    type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
++    type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle | StringifiedStyles };
+ 
+     export namespace ScaledSheet {
+         export function create<T extends NamedStyles<T> | NamedStyles<any>>(
+diff --git a/node_modules/react-native-size-matters/lib/.DS_Store b/node_modules/react-native-size-matters/lib/.DS_Store
+new file mode 100644
+index 0000000..c7c2aae
+Binary files /dev/null and b/node_modules/react-native-size-matters/lib/.DS_Store differ

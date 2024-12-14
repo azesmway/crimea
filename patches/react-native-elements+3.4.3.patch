@@ -1,0 +1,66 @@
+diff --git a/node_modules/react-native-elements/dist/list/ListItemAccordion.d.ts b/node_modules/react-native-elements/dist/list/ListItemAccordion.d.ts
+index b59a40e..2c20042 100644
+--- a/node_modules/react-native-elements/dist/list/ListItemAccordion.d.ts
++++ b/node_modules/react-native-elements/dist/list/ListItemAccordion.d.ts
+@@ -4,6 +4,7 @@ import { IconNode } from '../icons/Icon';
+ export declare type ListItemAccordionProps = ListItemProps & {
+     isExpanded?: boolean;
+     icon?: IconNode;
++    iconColor?: string;
+     expandIcon?: IconNode;
+     content?: React.ReactNode;
+     noRotation?: boolean;
+@@ -26,6 +27,7 @@ declare const _default: React.FunctionComponent<Omit<import("react-native").Touc
+ } & {
+     isExpanded?: boolean;
+     icon?: IconNode;
++    iconColor?: string;
+     expandIcon?: IconNode;
+     content?: React.ReactNode;
+     noRotation?: boolean;
+@@ -47,6 +49,7 @@ declare const _default: React.FunctionComponent<Omit<import("react-native").Touc
+ } & {
+     isExpanded?: boolean;
+     icon?: IconNode;
++    iconColor?: string;
+     expandIcon?: IconNode;
+     content?: React.ReactNode;
+     noRotation?: boolean;
+diff --git a/node_modules/react-native-elements/dist/list/ListItemAccordion.js b/node_modules/react-native-elements/dist/list/ListItemAccordion.js
+index eea0780..f285541 100644
+--- a/node_modules/react-native-elements/dist/list/ListItemAccordion.js
++++ b/node_modules/react-native-elements/dist/list/ListItemAccordion.js
+@@ -16,10 +16,10 @@ import ListItemContent from './ListItemContent';
+ import { withTheme } from '../config';
+ import { Icon } from '../icons/Icon';
+ const Accordion = (_a) => {
+-    var { children, isExpanded, icon, expandIcon, content, noRotation, noIcon, animation = {
++    var { children, isExpanded, icon, iconColor, expandIcon, content, noRotation, noIcon, animation = {
+         duration: 350,
+         type: 'timing',
+-    } } = _a, props = __rest(_a, ["children", "isExpanded", "icon", "expandIcon", "content", "noRotation", "noIcon", "animation"]);
++    } } = _a, props = __rest(_a, ["children", "isExpanded", "icon", "iconColor", "expandIcon", "content", "noRotation", "noIcon", "animation"]);
+     const { current: transition } = React.useRef(new Animated.Value(0));
+     const startAnimation = React.useCallback(() => {
+         if (typeof animation !== 'boolean') {
+@@ -53,15 +53,15 @@ const Accordion = (_a) => {
+                 ? isExpanded
+                     ? expandIcon
+                     : icon
+-                : icon)}/>) : (<Icon name={'chevron-down'} type="material-community"/>)}
++                : icon)}/>) : (<Icon name={'chevron-down'} color={iconColor} type="material-community"/>)}
+           </Animated.View>)}
+       </ListItemBase>
+       <Animated.View style={[
+             Boolean(animation) && {
+-                maxHeight: transition.interpolate({
+-                    inputRange: [0, 1],
+-                    outputRange: ['0%', '100%'],
+-                }),
++                // maxHeight: transition.interpolate({
++                //     inputRange: [0, 1],
++                //     outputRange: ['0%', '100%'],
++                // }),
+                 opacity: transition,
+             },
+         ]}>

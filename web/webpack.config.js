@@ -1,11 +1,11 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
-const appDirectory = path.resolve(__dirname, '../');
+const appDirectory = path.resolve(__dirname, '../')
 
-const babelConfig = require('../babel.config');
+const babelConfig = require('../babel.config')
 
 // Babel loader configuration
 const babelLoaderConfiguration = {
@@ -16,11 +16,11 @@ const babelLoaderConfiguration = {
         // babel will exclude these from transpling
         path.resolve(appDirectory, 'node_modules'),
         path.resolve(appDirectory, 'ios'),
-        path.resolve(appDirectory, 'android'),
+        path.resolve(appDirectory, 'android')
       ],
       // whitelisted modules to be transpiled by babel
-      not: [],
-    },
+      not: []
+    }
   ],
   use: {
     loader: 'babel-loader',
@@ -28,10 +28,10 @@ const babelLoaderConfiguration = {
       cacheDirectory: true,
       // Presets and plugins imported from main babel.config.js in root dir
       presets: babelConfig.presets,
-      plugins: ['react-native-web', ...(babelConfig.plugins || [])],
-    },
-  },
-};
+      plugins: ['react-native-web', ...(babelConfig.plugins || [])]
+    }
+  }
+}
 
 // Image loader configuration
 const imageLoaderConfiguration = {
@@ -40,10 +40,10 @@ const imageLoaderConfiguration = {
     loader: 'url-loader',
     options: {
       name: '[name].[ext]',
-      esModule: false,
-    },
-  },
-};
+      esModule: false
+    }
+  }
+}
 
 // File loader configuration
 const fileLoaderConfiguration = {
@@ -53,11 +53,11 @@ const fileLoaderConfiguration = {
       loader: 'file-loader',
       options: {
         name: '[name].[ext]',
-        outputPath: 'fonts/',
-      },
-    },
-  ],
-};
+        outputPath: 'fonts/'
+      }
+    }
+  ]
+}
 
 module.exports = argv => {
   return {
@@ -67,26 +67,13 @@ module.exports = argv => {
       path: path.resolve(appDirectory, 'web/dist'),
       filename: '[name].[chunkhash].js',
       sourceMapFilename: '[name].[chunkhash].map',
-      chunkFilename: '[id].[chunkhash].js',
+      chunkFilename: '[id].[chunkhash].js'
     },
     resolve: {
-      extensions: [
-        '.web.js',
-        '.js',
-        '.web.ts',
-        '.ts',
-        '.web.jsx',
-        '.jsx',
-        '.web.tsx',
-        '.tsx',
-      ],
+      extensions: ['.web.js', '.js', '.web.ts', '.ts', '.web.jsx', '.jsx', '.web.tsx', '.tsx']
     },
     module: {
-      rules: [
-        babelLoaderConfiguration,
-        imageLoaderConfiguration,
-        fileLoaderConfiguration,
-      ],
+      rules: [babelLoaderConfiguration, imageLoaderConfiguration, fileLoaderConfiguration]
     },
     plugins: [
       // Fast refresh plugin
@@ -94,14 +81,14 @@ module.exports = argv => {
 
       // Plugin that takes public/index.html and injects script tags with the built bundles
       new HtmlWebpackPlugin({
-        template: path.resolve(appDirectory, 'web/public/index.html'),
+        template: path.resolve(appDirectory, 'web/public/index.html')
       }),
 
       // Defines __DEV__ and process.env as not being null
       new webpack.DefinePlugin({
         __DEV__: argv.mode !== 'production' || true,
-        process: {env: {}},
-      }),
+        process: { env: {} }
+      })
     ],
     optimization: {
       // Split into vendor and main js files
@@ -110,10 +97,10 @@ module.exports = argv => {
           commons: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendor',
-            chunks: 'initial',
-          },
-        },
-      },
-    },
-  };
-};
+            chunks: 'initial'
+          }
+        }
+      }
+    }
+  }
+}

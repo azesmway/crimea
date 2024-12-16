@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, View } from 'react-native'
 import RenderHTML from 'react-native-render-html'
+import { ENDPOINTS_MAIN_URL } from 'res/endpoints'
 
 const { width, height } = Dimensions.get('window')
 
 const WPAPI = require('wpapi')
-const wp = new WPAPI({ endpoint: 'https://xn--b1agpite6ef.xn--p1ai/wp-json' })
+const wp = new WPAPI({ endpoint: ENDPOINTS_MAIN_URL })
 
 const App = () => {
   const [html, setHtml] = useState('')

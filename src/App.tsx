@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store } from 'store'
+import { PaperProvider } from 'react-native-paper'
 
 import Main from './Main'
 
@@ -14,7 +15,9 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Main />
+          <PaperProvider>
+            <Main />
+          </PaperProvider>
         </GestureHandlerRootView>
       </PersistGate>
     </Provider>

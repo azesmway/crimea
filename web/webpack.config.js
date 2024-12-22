@@ -70,7 +70,10 @@ module.exports = argv => {
       chunkFilename: '[id].[chunkhash].js'
     },
     resolve: {
-      extensions: ['.web.js', '.js', '.web.ts', '.ts', '.web.jsx', '.jsx', '.web.tsx', '.tsx']
+      extensions: ['.web.js', '.js', '.web.ts', '.ts', '.web.jsx', '.jsx', '.web.tsx', '.tsx'],
+      alias: {
+        'react-native-svg': 'react-native-svg-web'
+      }
     },
     module: {
       rules: [babelLoaderConfiguration, imageLoaderConfiguration, fileLoaderConfiguration]

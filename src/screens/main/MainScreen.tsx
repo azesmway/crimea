@@ -10,14 +10,18 @@
  */
 
 // @flow
+// import FooterBlock from 'components/ui/footer'
+// import MainTourism from 'components/ui/tourism'
 import Wrapper from 'components/ui/wrapper'
 import ErrorBoundary from 'ErrorBoundary'
 import { useStyles } from 'hooks'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { Dimensions, Image, Text, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Dimensions, Image, ScrollView, Text, useWindowDimensions, View } from 'react-native'
+import { useSelector } from 'react-redux'
+// import Image from 'react-native-scalable-image'
 import R from 'res'
-import { Images } from 'res/images'
+// import { Images } from 'res/images'
+import { RootState } from 'store'
 
 import stylesConfig from './MainScreen.styles'
 
@@ -50,8 +54,11 @@ const TownsComponent = () => (
 
 // eslint-disable-next-line no-empty-pattern
 const MainScreen = ({}: MainScreenProps) => {
+  const categories = useSelector((state: RootState) => state.app.categories)
+  const { width, height } = useWindowDimensions()
   const styles = useStyles(stylesConfig)
   const [screenSize, setScreenSize] = useState({ width: Dimensions.get('window').width, height: Dimensions.get('window').height })
+  const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = useWindowDimensions()
 
   const updateDimensions = () => {
     // @ts-ignore
@@ -66,22 +73,40 @@ const MainScreen = ({}: MainScreenProps) => {
     return () => window.removeEventListener('resize', updateDimensions)
   }, [])
 
+  const newsTitle = categories.filter((c: any) => Number(c.id) === 4)[0]
+  const townsTitle = categories.filter((c: any) => Number(c.id) === 19)[0]
+  const turTitle = categories.filter((c: any) => Number(c.id) === 41)[0]
+
   return (
     <Wrapper>
-      <ScrollView>
-        <View style={{ width: '100%', alignItems: 'center', backgroundColor: '#fff' }}>
-          <Image source={Images.MapImage} style={{ height: 513, width: 822 }} resizeMode={'stretch'} />
+      <ScrollView style={{ backgroundColor: '#fff' }}>
+        {/*<View style={{ height: 20 }} />*/}
+        {/*<View style={{ width: '100%', alignItems: 'center' }}>*/}
+        {/*  <Image source={Images.MapImage} style={{ width: 791, height: 500 }} />*/}
+        {/*</View>*/}
+        {/*<View style={{ height: 40 }} />*/}
+        {/*<View style={{ width: '90%', height: 80, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#ccc', alignSelf: 'center' }}>*/}
+        {/*  <Text style={styles.titleHeader}>{newsTitle.name}</Text>*/}
+        {/*</View>*/}
+        {/*<View style={{ height: 20 }} />*/}
+        {/*<NewsComponent />*/}
+        {/*<View style={{ width: '90%', height: 80, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#ccc', alignSelf: 'center' }}>*/}
+        {/*  <Text style={styles.titleHeader}>{townsTitle.name}</Text>*/}
+        {/*</View>*/}
+        {/*<View style={{ height: 20 }} />*/}
+        {/*<TownsComponent />*/}
+        {/*<View style={{ width: '100%', backgroundColor: '#0067A3' }}>*/}
+        {/*  <View style={{ width: '90%', height: 80, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#ccc', alignSelf: 'center' }}>*/}
+        {/*    <Text style={[styles.titleHeader, { color: 'white' }]}>{turTitle.name}</Text>*/}
+        {/*  </View>*/}
+        {/*  <View style={{ height: 20 }} />*/}
+        {/*  <MainTourism />*/}
+        {/*  <View style={{ height: 20 }} />*/}
+        {/*</View>*/}
+        {/*<FooterBlock />*/}
+        <View style={{ width: '100%', height: Dimensions.get('window').height - (SCREEN_WIDTH < 540 ? 100 : 120), alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 30, textAlign: 'center', color: '#595959' }}>{'ПРОЕКТ НАХОДИТСЯ В РАЗРАБОТКЕ!'}</Text>
         </View>
-        <View style={{ width: '90%', height: 80, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#ccc', alignSelf: 'center' }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 28, color: '#007cc4' }}>{'НОВОСТИ ПРОЕКТА'}</Text>
-        </View>
-        <View style={{ height: 20 }} />
-        <NewsComponent />
-        <View style={{ width: '90%', height: 80, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#ccc', alignSelf: 'center' }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 28, color: '#007cc4' }}>{'ГОРОДА КРЫМА'}</Text>
-        </View>
-        <View style={{ height: 20 }} />
-        <TownsComponent />
       </ScrollView>
     </Wrapper>
   )

@@ -14,8 +14,7 @@ import { createStyles } from 'utils/createStyles'
 
 export default createStyles((colors, fonts) => ({
   container: {
-    width: '88%',
-    height: '60@s',
+    height: 160,
     alignSelf: 'center'
   }
 }))

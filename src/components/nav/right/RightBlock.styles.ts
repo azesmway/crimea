@@ -12,7 +12,7 @@
 // @flow
 import { createStyles } from 'utils/createStyles'
 
-const FONT_SIZE = 14
+const FONT_SIZE = 18
 const FONT_COLOR = '#0067a3'
 
 export default createStyles((colors, fonts) => ({
@@ -21,7 +21,9 @@ export default createStyles((colors, fonts) => ({
   },
   menu: {
     fontSize: FONT_SIZE,
-    fontWeight: 'bold',
+    color: FONT_COLOR
+  },
+  titleMenu: {
     color: FONT_COLOR
   }
 }))

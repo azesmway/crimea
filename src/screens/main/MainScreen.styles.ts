@@ -15,5 +15,11 @@ import { createStyles } from 'utils/createStyles'
 export default createStyles((colors, fonts) => ({
   container: {
     flex: 1
+  },
+  titleHeader: {
+    fontWeight: 'bold',
+    fontSize: 28,
+    color: '#007cc4',
+    textTransform: 'uppercase'
   }
 }))

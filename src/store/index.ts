@@ -1,9 +1,10 @@
 // @flow
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { mainApi } from 'api'
+import { appApi } from 'api'
 import { persistReducer } from 'redux-persist'
 
+import app from './data'
 import { storage } from './storage'
 
 const reduxStorage = {
@@ -25,11 +26,12 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage: reduxStorage,
-  blacklist: [mainApi.reducerPath]
+  blacklist: [appApi.reducerPath]
 }
 
 export const rootReducer = combineReducers({
-  [mainApi.reducerPath]: mainApi.reducer
+  app: app,
+  [appApi.reducerPath]: appApi.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -40,7 +42,7 @@ const options = {
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false
-    }).concat(mainApi.middleware)
+    }).concat(appApi.middleware)
 }
 
 export const store = configureStore(options)

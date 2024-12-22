@@ -5,14 +5,14 @@ import { ENDPOINT_URL_API, ENDPOINT_URL_POSTS, ENDPOINTS_MAIN_URL } from 'res/en
 const WPAPI = require('wpapi')
 const wp = new WPAPI({ endpoint: ENDPOINTS_MAIN_URL })
 
-export const mainApi = createApi({
-  reducerPath: 'mainApi',
-  tagTypes: ['Main'],
+export const appApi = createApi({
+  reducerPath: 'appApi',
+  tagTypes: ['App'],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL_API + ENDPOINT_URL_API
   }),
   endpoints: builder => ({
-    getNewsPosts: builder.query<any, any>({
+    getPosts: builder.query<any, any>({
       // @ts-ignore
       queryFn: async ({ id }) => {
         try {
@@ -28,7 +28,7 @@ export const mainApi = createApi({
         return response
       }
     }),
-    getNewsPostsByID: builder.query<any, any>({
+    getPostsByID: builder.query<any, any>({
       // @ts-ignore
       queryFn: async ({ id }) => {
         try {
@@ -43,8 +43,37 @@ export const mainApi = createApi({
       transformResponse: (response: any, meta: any, arg: any) => {
         return response
       }
+    }),
+    getCategories: builder.query<any, any>({
+      // @ts-ignore
+      queryFn: async () => {
+        try {
+          const _ = require('lodash')
+          const getAll = (request: any) => {
+            return request.then(function (response: any) {
+              if (!response._paging || !response._paging.next) {
+                return response
+              }
+
+              return Promise.all([response, getAll(response._paging.next)]).then(function (responses) {
+                return _.flatten(responses)
+              })
+            })
+          }
+
+          const data = await getAll(wp.categories())
+
+          return { data }
+        } catch (error) {
+          // Catch any errors and return them as an object with an `error` field
+          return { error }
+        }
+      },
+      transformResponse: (response: any, meta: any, arg: any) => {
+        return response
+      }
     })
   })
 })
 
-export const { useGetNewsPostsQuery, useGetNewsPostsByIDQuery } = mainApi
+export const { useGetPostsQuery, useGetPostsByIDQuery, useGetCategoriesQuery } = appApi

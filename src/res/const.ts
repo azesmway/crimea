@@ -14,6 +14,16 @@ export const FONT_APP_24 = Platform.OS === 'web' ? 24 / DIVIDER : 24
 export const FONT_APP_26 = Platform.OS === 'web' ? 26 / DIVIDER : 26
 export const FONT_APP_28 = Platform.OS === 'web' ? 28 / DIVIDER : 28
 
-export const BASE_URL_API = 'https://xn--b1agpite6ef.xn--p1ai'
+export const BASE_URL_API = 'https://ves-krim.ru'
 
 export const CAROUSEL_HEIGHT = 100
+
+export const CATEGORIES_MAIN = [37, 38, 4, 19, 40, 41]
+export const CATEGORIES_NAME = [
+  { id: 37, name: 'Главная' },
+  { id: 38, name: 'Карта' },
+  { id: 4, name: 'Новости проекта' },
+  { id: 19, name: 'Города Крыма' },
+  { id: 40, name: 'Что посмотреть' },
+  { id: 41, name: 'Отдых и туризм' }
+]

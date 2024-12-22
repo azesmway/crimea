@@ -13,11 +13,11 @@
 import 'moment/locale/ru'
 
 import { useNavigation } from '@react-navigation/native'
-import { useGetNewsPostsQuery } from 'api'
+import { useGetPostsQuery } from 'api'
 import { useStyles } from 'hooks'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, FlatList, Image, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import RenderHTML from 'react-native-render-html'
 import R from 'res'
 
@@ -32,10 +32,11 @@ const { width } = Dimensions.get('window')
 const MainNews = ({}: MainNewsProps) => {
   const styles = useStyles(stylesConfig)
   const navigation = useNavigation()
+  const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = useWindowDimensions()
   const [items, setItems] = useState<any[]>([])
   const [activeSlide, setActiveSlide] = useState<number>(0)
 
-  const { data } = useGetNewsPostsQuery({ id: 4 })
+  const { data } = useGetPostsQuery({ id: 4 })
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -45,14 +46,14 @@ const MainNews = ({}: MainNewsProps) => {
 
   const renderItem = ({ item, index }: { item: any; index: number }) => {
     return (
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ width: 180, alignItems: 'center' }}>
-          <Image source={{ uri: item.fimg_url }} style={{ width: 150, height: 150, borderRadius: 10 }} resizeMode={'cover'} />
+      <View style={{ height: 150, flexDirection: 'row' }}>
+        <View style={{ width: SCREEN_WIDTH < 540 ? 130 : 180, alignItems: 'center' }}>
+          <Image source={{ uri: item.fimg_url }} style={{ width: SCREEN_WIDTH < 540 ? 100 : 150, height: SCREEN_WIDTH < 540 ? 100 : 150, borderRadius: 10 }} resizeMode={'cover'} />
         </View>
         <View style={{ width: 270 }}>
           <Text style={{ fontWeight: 'bold' }}>{item.title.rendered}</Text>
           <RenderHTML contentWidth={270} source={{ html: item.excerpt.rendered.replace(/(?:\r\n|\r|\n|\t)/g, '') }} />
-          <View style={{ width: '100%', flexDirection: 'row', position: 'absolute', right: 0, left: 0, bottom: 26 }}>
+          <View style={{ width: '100%', flexDirection: 'row', position: 'absolute', right: 0, left: 0, bottom: 0 }}>
             <View style={{ width: '50%', alignItems: 'flex-start' }}>
               <Text style={{ fontSize: 12, color: '#858585' }}>{moment(item.date).format('ll')}</Text>
             </View>
@@ -76,8 +77,8 @@ const MainNews = ({}: MainNewsProps) => {
   return (
     <View
       // @ts-ignore
-      style={styles.container}>
-      <FlatList data={items} renderItem={renderItem} horizontal={true} keyExtractor={keyExtractor} showsHorizontalScrollIndicator={false} />
+      style={[styles.container, { width: SCREEN_WIDTH < 540 ? '100%' : '88%' }]}>
+      <FlatList data={items} renderItem={renderItem} horizontal={true} keyExtractor={keyExtractor} showsHorizontalScrollIndicator={false} pagingEnabled={true} />
     </View>
   )
 }

@@ -17,7 +17,7 @@ import { useGetPostsQuery } from 'api'
 import { useStyles } from 'hooks'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { Dimensions, FlatList, Image, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
+import { ActivityIndicator, Dimensions, FlatList, Image, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import RenderHTML from 'react-native-render-html'
 import R from 'res'
 
@@ -36,7 +36,7 @@ const MainNews = ({}: MainNewsProps) => {
   const [items, setItems] = useState<any[]>([])
   const [activeSlide, setActiveSlide] = useState<number>(0)
 
-  const { data } = useGetPostsQuery({ id: 4 })
+  const { data, isLoading } = useGetPostsQuery({ id: 4 })
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -78,7 +78,13 @@ const MainNews = ({}: MainNewsProps) => {
     <View
       // @ts-ignore
       style={[styles.container, { width: SCREEN_WIDTH < 540 ? '100%' : '88%' }]}>
-      <FlatList data={items} renderItem={renderItem} horizontal={true} keyExtractor={keyExtractor} showsHorizontalScrollIndicator={false} pagingEnabled={true} />
+      {isLoading ? (
+        <View style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+          <ActivityIndicator size={'large'} />
+        </View>
+      ) : (
+        <FlatList data={items} renderItem={renderItem} horizontal={true} keyExtractor={keyExtractor} showsHorizontalScrollIndicator={false} pagingEnabled={true} />
+      )}
     </View>
   )
 }

@@ -13,7 +13,7 @@
 import { useGetPostsQuery } from 'api'
 import { useStyles } from 'hooks'
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, Pressable, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
+import { ActivityIndicator, FlatList, Image, Pressable, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import RenderHTML from 'react-native-render-html'
 import { s } from 'react-native-size-matters'
 import R from 'res'
@@ -30,7 +30,7 @@ const MainTowns = ({}: MainTownsProps) => {
   const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = useWindowDimensions()
   const [items, setItems] = useState<any[]>([])
 
-  const { data } = useGetPostsQuery({ id: 19 })
+  const { data, isLoading } = useGetPostsQuery({ id: 19 })
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -79,7 +79,13 @@ const MainTowns = ({}: MainTownsProps) => {
       <View
         // @ts-ignore
         style={styles.container}>
-        <FlatList data={items} renderItem={renderItem} keyExtractor={keyExtractor} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} />
+        {isLoading ? (
+          <View style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator size={'large'} />
+          </View>
+        ) : (
+          <FlatList data={items} renderItem={renderItem} numColumns={1} keyExtractor={keyExtractor} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} />
+        )}
       </View>
     )
   } else {
@@ -87,7 +93,13 @@ const MainTowns = ({}: MainTownsProps) => {
       <View
         // @ts-ignore
         style={styles.container}>
-        <FlatList data={items} renderItem={renderItem} numColumns={4} keyExtractor={keyExtractor} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} />
+        {isLoading ? (
+          <View style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator size={'large'} />
+          </View>
+        ) : (
+          <FlatList data={items} renderItem={renderItem} numColumns={4} keyExtractor={keyExtractor} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} />
+        )}
       </View>
     )
   }

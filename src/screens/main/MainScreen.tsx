@@ -92,12 +92,17 @@ const MainScreen = ({}: MainScreenProps) => {
   //   )
   // }
   //             renderHorseCanvas()
+
+  const imgW = screenSize.width < 540 ? 491 : 791
+  const imgH = screenSize.width < 540 ? 300 : 500
+  const viewH = screenSize.width < 540 ? 300 : 500
+
   return (
     <Wrapper>
       <ScrollView style={{ backgroundColor: '#fff' }}>
         <View style={{ height: 20 }} />
-        <View style={{ width: 1700, height: 500, alignItems: 'center' }}>
-          <Image source={Images.MapImage} style={{ width: 791, height: 500 }} />
+        <View style={{ width: '100%', height: viewH, alignItems: 'center' }}>
+          <Image source={Images.MapImage} style={{ width: imgW, height: imgH }} resizeMode={'cover'} />
         </View>
         <View style={{ height: 40 }} />
         <View

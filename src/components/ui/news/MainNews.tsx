@@ -51,7 +51,7 @@ const MainNews = ({}: MainNewsProps) => {
           <Image source={{ uri: item.fimg_url }} style={{ width: SCREEN_WIDTH < 540 ? 100 : 150, height: SCREEN_WIDTH < 540 ? 100 : 150, borderRadius: 10 }} resizeMode={'cover'} />
         </View>
         <View style={{ width: 270 }}>
-          <Text style={{ fontWeight: 'bold' }}>{item.title.rendered}</Text>
+          <Text style={{ fontWeight: 'bold', fontFamily: 'Roboto' }}>{item.title.rendered}</Text>
           <RenderHTML contentWidth={270} source={{ html: item.excerpt.rendered.replace(/(?:\r\n|\r|\n|\t)/g, '') }} />
           <View style={{ width: '100%', flexDirection: 'row', position: 'absolute', right: 0, left: 0, bottom: 0 }}>
             <View style={{ width: '50%', alignItems: 'flex-start' }}>

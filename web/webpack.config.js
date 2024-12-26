@@ -59,6 +59,11 @@ const fileLoaderConfiguration = {
   ]
 }
 
+const glbLoaderConfiguration = {
+  test: /\.(glb|gltf)$/,
+  type: 'asset/resource'
+}
+
 module.exports = argv => {
   return {
     entry: path.resolve(appDirectory, 'index'),
@@ -70,13 +75,13 @@ module.exports = argv => {
       chunkFilename: '[id].[chunkhash].js'
     },
     resolve: {
-      extensions: ['.web.js', '.js', '.web.ts', '.ts', '.web.jsx', '.jsx', '.web.tsx', '.tsx'],
+      extensions: ['.web.js', '.js', '.web.ts', '.ts', '.web.jsx', '.jsx', '.web.tsx', '.tsx', 'glb', 'gltf'],
       alias: {
         'react-native-svg': 'react-native-svg-web'
       }
     },
     module: {
-      rules: [babelLoaderConfiguration, imageLoaderConfiguration, fileLoaderConfiguration]
+      rules: [babelLoaderConfiguration, imageLoaderConfiguration, fileLoaderConfiguration, glbLoaderConfiguration]
     },
     plugins: [
       // Fast refresh plugin

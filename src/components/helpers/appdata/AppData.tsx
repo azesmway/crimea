@@ -19,7 +19,7 @@ import { setAppCategories } from 'store/data'
 const AppData = ({}) => {
   const { data } = useGetCategoriesQuery(null)
   const dispatch = useDispatch()
-
+console.log('data', data)
   useEffect(() => {
     if (data && data.length > 0) {
       dispatch(setAppCategories(data))

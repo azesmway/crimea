@@ -11,7 +11,7 @@
 
 // @flow
 import { useRoute } from '@react-navigation/native'
-import { useGetNewsPostsByIDQuery } from 'api'
+import { useGetPostsByIDQuery } from 'api'
 import Wrapper from 'components/ui/wrapper'
 import { useStyles } from 'hooks'
 import React from 'react'
@@ -31,7 +31,7 @@ const ArticleNews = ({}: ArticleNewsProps) => {
   const route = useRoute()
   // @ts-ignore
   const { id } = route.params
-  const { data } = useGetNewsPostsByIDQuery({ id })
+  const { data } = useGetPostsByIDQuery({ id })
 
   if (!data) {
     return (

@@ -19,8 +19,8 @@ const config = {
     })
   },
   resolver: {
-    assetExts: defaultAssetExts.filter(ext => ext !== 'svg'),
-    sourceExts: [...defaultSourceExts, 'svg']
+    assetExts: [...defaultAssetExts.filter(ext => ext !== 'svg'), 'glb', 'gltf', 'png', 'jpg'],
+    sourceExts: [...defaultSourceExts, 'svg', 'js', 'jsx', 'json', 'ts', 'tsx', 'cjs', 'mjs']
   }
 }
 
